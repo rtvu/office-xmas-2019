@@ -8,10 +8,10 @@
   </head>
   <body>
     <nav class="navbar navbar-dark bg-primary justify-content-between sticky-top mb-2">
-      <%= link to: Routes.page_path(@conn, :index), class: "navbar-brand" do %>
+      <%= link to: Routes.home_path(@conn, :index), class: "navbar-brand" do %>
         <strong>PuzzleChallenge</strong>
       <% end %>
-      <%= link to: Routes.page_path(@conn, :index), class: "btn btn-sm btn-outline-light" do %>
+      <%= link to: Routes.home_path(@conn, :index), class: "btn btn-sm btn-outline-light" do %>
         <strong>Restart</strong>
       <% end %>
     </nav>

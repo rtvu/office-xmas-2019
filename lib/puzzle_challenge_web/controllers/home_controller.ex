@@ -1,4 +1,4 @@
-defmodule PuzzleChallengeWeb.PageController do
+defmodule PuzzleChallengeWeb.HomeController do
   use PuzzleChallengeWeb, :controller
 
   def index(conn, _params) do
