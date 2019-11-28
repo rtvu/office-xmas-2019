@@ -1,1 +1,8 @@
-PLACEHOLDER
+<%= if not is_nil(@object) do %>
+  <%= case {@object, @gotten?, @old?} do %>
+    <%= {"flashlight", true, false} -> %>
+      You acquired a flashlight
+    <%= {"flashlight", true, true} -> %>
+      You already have a flashlight
+  <% end %>
+<% end %>
