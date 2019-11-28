@@ -4,10 +4,10 @@ defmodule PuzzleChallengeWeb.HomeController do
   alias PuzzleChallenge.Puzzle
 
   def index(conn, params) do
-    conn = get_puzzle(conn)
-    conn = handle_params(conn, params)
-
-    render(conn, "index.html")
+    conn
+    |> get_puzzle()
+    |> handle_params(params)
+    |> render("index.html")
   end
 
   defp get_puzzle(conn) do
@@ -24,17 +24,17 @@ defmodule PuzzleChallengeWeb.HomeController do
   end
 
   defp handle_params(conn, params) do
-    with  true <- Map.has_key?(params, "object"),
-          {puzzle, object, gotten?, old?} when not is_nil(object) <- Puzzle.update(conn.assigns[:puzzle], params["object"]) do
+    with  true <- Map.has_key?(params, "location"),
+          {puzzle, location, options} when not is_nil(location) <- Puzzle.update(conn.assigns[:puzzle], params["location"]) do
       conn
       |> put_session("puzzle", puzzle)
-      |> assign(:object, object)
-      |> assign(:gotten?, gotten?)
-      |> assign(:old?, old?)
+      |> assign(:puzzle, puzzle)
+      |> assign(:location, location)
+      |> assign(:options, options)
     else
       _ ->
         conn
-        |> assign(:object, nil)
+        |> assign(:location, nil)
     end
   end
 end

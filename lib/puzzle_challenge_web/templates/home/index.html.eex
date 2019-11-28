@@ -1,8 +1,37 @@
-<%= if not is_nil(@object) do %>
-  <%= case {@object, @gotten?, @old?} do %>
-    <%= {"flashlight", true, false} -> %>
-      You acquired a flashlight
-    <%= {"flashlight", true, true} -> %>
-      You already have a flashlight
+<h3>Action</h3>
+<%= if not is_nil(@location) do %>
+  <%= case {@location, @options} do %>
+    <% {"flashlight", :acquired_flashlight} -> %>
+      <p>You acquired a flashlight</p>
+    <% {"flashlight", :already_acquired_flashlight} -> %>
+      <p>You already have a flashlight</p>
+    <% {"treasure_chest", :no_key} -> %>
+      <p>This chest appears to be locked</p>
+    <% {"treasure_chest", :found_treasure} -> %>
+      <h2 class="text-success">You found treasure in the chest</h2>
+    <% {"treasure_chest", :already_found_treasure} -> %>
+      <h2 class="text-success">You already found the treasure</h2>
+    <% {"shelf_a", :cannot_see} -> %>
+      <p>You cannot see into the dark shelf</p>
+    <% {"shelf_a", :nothing_to_see} -> %>
+      <p>There is nothing inside the shelf</p>
+    <% {"shelf_b", :cannot_see} -> %>
+      <p>You cannot see into the dark shelf</p>
+    <% {"shelf_b", :nothing_to_see} -> %>
+      <p>There is nothing inside the shelf</p>
+    <% {"shelf_b", :found_key} -> %>
+      <p>You found a key</p>
   <% end %>
+<% else %>
+  <p>Find special locations in the mural</p>
 <% end %>
+
+<h3>Inventory</h3>
+<ul>
+  <%= if @puzzle.key do %>
+    <li>Key</li>
+  <% end %>
+  <%= if @puzzle.flashlight do %>
+    <li>Flashlight</li>
+  <% end %>
+</ul>
