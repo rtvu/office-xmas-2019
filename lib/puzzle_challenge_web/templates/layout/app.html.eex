@@ -11,13 +11,36 @@
       <%= link to: Routes.home_path(@conn, :index), class: "navbar-brand" do %>
         <strong>Santa's Workshop</strong>
       <% end %>
-      <%= link to: Routes.restart_path(@conn, :delete), method: :delete, class: "btn btn-sm btn-outline-light" do %>
+      <button type="button" class="btn btn-sm btn-outline-light" data-toggle="modal" data-target="#restartModal">
         <strong>Restart</strong>
-      <% end %>
+      </button>
+      <!-- <%= link to: Routes.restart_path(@conn, :delete), method: :delete, class: "btn btn-sm btn-outline-light" do %>
+        <strong>Restart</strong>
+      <% end %> -->
     </nav>
 
     <div class="container">
       <%= render @view_module, @view_template, assigns %>
+    </div>
+
+    <div class="modal" id="restartModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Restart</h4>
+          </div>
+          <div class="modal-body">
+            <p>Do you want to restart the challenge?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+            <div class="mx-auto"></div>
+            <%= link to: Routes.restart_path(@conn, :delete), method: :delete, class: "btn btn-sm btn-danger" do %>
+              Restart
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
