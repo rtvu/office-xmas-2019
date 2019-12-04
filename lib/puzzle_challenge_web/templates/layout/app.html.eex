@@ -4,12 +4,12 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
-    <title>PuzzleChallenge</title>
+    <title>Santa's Workshop</title>
   </head>
   <body>
-    <nav class="navbar navbar-dark bg-primary justify-content-between sticky-top mb-2">
+    <nav class="navbar navbar-dark bg-success justify-content-between sticky-top mb-2">
       <%= link to: Routes.home_path(@conn, :index), class: "navbar-brand" do %>
-        <strong>PuzzleChallenge</strong>
+        <strong>Santa's Workshop</strong>
       <% end %>
       <%= link to: Routes.restart_path(@conn, :delete), method: :delete, class: "btn btn-sm btn-outline-light" do %>
         <strong>Restart</strong>
