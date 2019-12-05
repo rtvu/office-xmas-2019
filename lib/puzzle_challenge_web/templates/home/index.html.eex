@@ -1,44 +1,17 @@
-<!-- <h3>Action</h3>
-<%= if not is_nil(@location) do %>
-  <%= case {@location, @options} do %>
-    <% {"flashlight", :acquired_flashlight} -> %>
-      <p>You acquired a flashlight</p>
-    <% {"flashlight", :already_acquired_flashlight} -> %>
-      <p>You already have a flashlight</p>
-    <% {"treasure_chest", :no_key} -> %>
-      <p>This chest appears to be locked</p>
-    <% {"treasure_chest", :found_treasure} -> %>
-      <h2 class="text-success">You found treasure in the chest</h2>
-    <% {"treasure_chest", :already_found_treasure} -> %>
-      <h2 class="text-success">You already found the treasure</h2>
-    <% {"shelf_a", :cannot_see} -> %>
-      <p>You cannot see into the dark shelf</p>
-    <% {"shelf_a", :nothing_to_see} -> %>
-      <p>There is nothing inside the shelf</p>
-    <% {"shelf_b", :cannot_see} -> %>
-      <p>You cannot see into the dark shelf</p>
-    <% {"shelf_b", :nothing_to_see} -> %>
-      <p>There is nothing inside the shelf</p>
-    <% {"shelf_b", :found_key} -> %>
-      <p>You found a key</p>
-  <% end %>
-<% else %>
-  <p>Find special locations in the mural</p>
-<% end %>
-
-<h3>Inventory</h3>
-<ul>
-  <%= if @puzzle.key do %>
-    <li>Key</li>
-  <% end %>
-  <%= if @puzzle.flashlight do %>
-    <li>Flashlight</li>
-  <% end %>
-</ul> -->
+<%
+  {image_path, message} = if not is_nil(@location) do
+                            {"/images/santas_workshop.svg", ""}
+                          else
+                            image_path = "/images/santas_workshop.svg"
+                            message = "The Grinch is hiding in Santa's Workshop and has locked away Santa's reindeer treats.\n\nHelp Santa find the treats and help the Grinch get into the Christmas spirit"
+                            message = text_to_html(message)
+                            {image_path, message}
+                          end
+%>
 
 <div class="card mx-auto" style="width: 18rem;">
-  <img class="card-img-top border-bottom" src="<%= Routes.static_path(@conn, "/images/test.svg") %>">
+  <img class="card-img-top border-bottom" src="<%= Routes.static_path(@conn, image_path) %>">
   <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <p class="card-text"><%= message %></p>
   </div>
 </div>
