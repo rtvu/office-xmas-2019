@@ -1,17 +1,23 @@
-<%
-  {image_path, message} = if not is_nil(@location) do
-                            {"/images/santas_workshop.svg", ""}
-                          else
-                            image_path = "/images/santas_workshop.svg"
-                            message = "The Grinch is hiding in Santa's Workshop and has locked away Santa's reindeer treats.\n\nHelp Santa find the treats and help the Grinch get into the Christmas spirit"
-                            message = text_to_html(message)
-                            {image_path, message}
-                          end
-%>
+<% {card_image_path, card_message} = get_card_parameters(assigns) %>
 
-<div class="card mx-auto" style="width: 18rem;">
-  <img class="card-img-top border-bottom" src="<%= Routes.static_path(@conn, image_path) %>">
+<div class="card mx-auto border-dark" style="width: 18rem;">
+  <img class="card-img-top border-dark border-bottom p-2" src="<%= Routes.static_path(@conn, card_image_path) %>">
   <div class="card-body">
-    <p class="card-text"><%= message %></p>
+    <p class="card-text"><%= card_message %></p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <h3 class="text-center my-1">Inventory</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="d-flex flex-wrap">
+      <%= for item <- @puzzle.inventory do %>
+        <img class="border border-dark rounded p-1" style="margin: 1px; width: 3rem; height: 3rem;" src="<%= Routes.static_path(@conn, get_image_path(item)) %>">
+      <% end %>
+    </div>
   </div>
 </div>
