@@ -1,0 +1,2 @@
+- Add fallback to all update clauses in puzzle.ex
+- Have home_controller.ex remove outdated cookie version
