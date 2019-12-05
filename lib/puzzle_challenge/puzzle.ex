@@ -18,7 +18,8 @@ defmodule PuzzleChallenge.Puzzle do
     old_pixie_dust: false,
     heart_teddy_bear: false,
     grinch_friend: false,
-    last_bear_component: nil
+    last_bear_component: nil,
+    inventory: []
   ]
 
   # LOCATIONS:
@@ -52,8 +53,9 @@ defmodule PuzzleChallenge.Puzzle do
 
   def update(puzzle, location = "flashlight") do
     case puzzle do
-      %Puzzle{flashlight: false} ->
-        puzzle = %{puzzle | flashlight: true}
+      %Puzzle{flashlight: false, inventory: inventory} ->
+        inventory = [:flashlight | inventory]
+        puzzle = %{puzzle | flashlight: true, inventory: inventory}
         {puzzle, location, :acquired_flashlight}
       %Puzzle{flashlight: true} ->
         {puzzle, location, :already_acquired_flashlight}
@@ -62,8 +64,9 @@ defmodule PuzzleChallenge.Puzzle do
 
   def update(puzzle, location = "pickaxe") do
     case puzzle do
-      %Puzzle{pickaxe: false} ->
-        puzzle = %{puzzle | pickaxe: true}
+      %Puzzle{pickaxe: false, inventory: inventory} ->
+        inventory = [:pickaxe | inventory]
+        puzzle = %{puzzle | pickaxe: true, inventory: inventory}
         {puzzle, location, :acquired_pickaxe}
       %Puzzle{pickaxe: true} ->
         {puzzle, location, :already_acquired_pickaxe}
@@ -72,8 +75,9 @@ defmodule PuzzleChallenge.Puzzle do
 
   def update(puzzle, location = "magic_glasses") do
     case puzzle do
-      %Puzzle{magic_glasses: false} ->
-        puzzle = %{puzzle | magic_glasses: true}
+      %Puzzle{magic_glasses: false, inventory: inventory} ->
+        inventory = [:magic_glasses | inventory]
+        puzzle = %{puzzle | magic_glasses: true, inventory: inventory}
         {puzzle, location, :acquired_magic_glasses}
       %Puzzle{magic_glasses: true} ->
         {puzzle, location, :already_acquired_magic_glasses}
@@ -120,8 +124,9 @@ defmodule PuzzleChallenge.Puzzle do
     case puzzle do
       %Puzzle{flashlight: false} ->
         {puzzle, location, :cannot_see}
-      %Puzzle{flashlight: true, key: false} ->
-        puzzle = %{puzzle | key: true}
+      %Puzzle{flashlight: true, key: false, inventory: inventory} ->
+        inventory = [:key | inventory]
+        puzzle = %{puzzle | key: true, inventory: inventory}
         {puzzle, location, :acquired_key}
       %Puzzle{flashlight: true, key: true} ->
         {puzzle, location, :nothing_to_see}
@@ -132,10 +137,13 @@ defmodule PuzzleChallenge.Puzzle do
     case puzzle do
       %Puzzle{flashlight: false} ->
         {puzzle, location, :cannot_see}
-      %Puzzle{flashlight: true, dust_balls: false} ->
-        puzzle = %{puzzle | dust_balls: true}
+      %Puzzle{flashlight: true, dust_balls: false, inventory: inventory} ->
+        inventory = [:dust_balls | inventory]
+        puzzle = %{puzzle | dust_balls: true, inventory: inventory}
         {puzzle, location, :acquired_dust_balls}
-      %Puzzle{flashlight: true, dust_balls: true} ->
+      %Puzzle{flashlight: true, dust_balls: true, inventory: inventory} ->
+        inventory = List.delete(inventory, :dust_balls)
+        inventory = [:dust_balls | inventory]
         {puzzle, location, :acquired_more_dust_balls}
     end
   end
@@ -144,11 +152,12 @@ defmodule PuzzleChallenge.Puzzle do
     case puzzle do
       %Puzzle{flashlight: false} ->
         {puzzle, location, :cannot_see}
-      %Puzzle{flashlight: true, cotton_balls: false} ->
-        puzzle = %{puzzle | cotton_balls: true, last_bear_component: :cotton_balls}
-        {puzzle, location, :acquired_cotton_balls}
-      %Puzzle{flashlight: true, cotton_balls: true} ->
+      %Puzzle{flashlight: true, cotton_balls: cotton_balls?, grinch_friend: grinch_friend?, heart_teddy_bear: heart_teddy_bear?} when cotton_balls? or grinch_friend? or heart_teddy_bear? ->
         {puzzle, location, :left_additional_cotton_balls}
+      %Puzzle{flashlight: true, cotton_balls: false, inventory: inventory} ->
+        inventory = [:cotton_balls | inventory]
+        puzzle = %{puzzle | cotton_balls: true, last_bear_component: :cotton_balls, inventory: inventory}
+        {puzzle, location, :acquired_cotton_balls}
     end
   end
 
@@ -156,8 +165,9 @@ defmodule PuzzleChallenge.Puzzle do
     case puzzle do
       %Puzzle{key: false} ->
         {puzzle, location, :no_key}
-      %Puzzle{key: true, reindeer_treats: false} ->
-        puzzle = %{puzzle | reindeer_treats: true}
+      %Puzzle{key: true, reindeer_treats: false, inventory: inventory} ->
+        inventory = [:reindeer_treats | inventory]
+        puzzle = %{puzzle | reindeer_treats: true, inventory: inventory}
         {puzzle, location, :opened_chest}
       %Puzzle{key: true, reindeer_treats: true} ->
         {puzzle, location, :already_opened_chest}
@@ -166,18 +176,22 @@ defmodule PuzzleChallenge.Puzzle do
 
   def update(puzzle, location = "coal") do
     case puzzle do
-      %Puzzle{coal: false} ->
-        puzzle = %{puzzle | coal: true}
+      %Puzzle{coal: false, inventory: inventory} ->
+        inventory = [:coal | inventory]
+        puzzle = %{puzzle | coal: true, inventory: inventory}
         {puzzle, location, :acquired_coal}
-      %Puzzle{coal: true} ->
+      %Puzzle{coal: true, inventory: inventory} ->
+        inventory = [:coal | inventory]
+        puzzle = %{puzzle | inventory: inventory}
         {puzzle, location, :acquired_more_coal}
     end
   end
 
   def update(puzzle, location = "santas_magic_book") do
     case puzzle do
-      %Puzzle{santas_magic_book: false} ->
-        puzzle = %{puzzle | santas_magic_book: true}
+      %Puzzle{santas_magic_book: false, inventory: inventory} ->
+        inventory = [:santas_magic_book | inventory]
+        puzzle = %{puzzle | santas_magic_book: true, inventory: inventory}
         {puzzle, location, :acquired_santas_magic_book}
       %Puzzle{santas_magic_book: true} ->
         {puzzle, location, :already_acquired_santas_magic_book}
@@ -186,11 +200,12 @@ defmodule PuzzleChallenge.Puzzle do
 
   def update(puzzle, location = "button_pillow") do
     case puzzle do
-      %Puzzle{button: false} ->
-        puzzle = %{puzzle | button: true, last_bear_component: :button}
-        {puzzle, location, :acquired_button}
-      %Puzzle{button: true} ->
+      %Puzzle{button: button?, grinch_friend: grinch_friend?, heart_teddy_bear: heart_teddy_bear?} when button? or grinch_friend? or heart_teddy_bear? ->
         {puzzle, location, :already_acquired_button}
+      %Puzzle{button: false, inventory: inventory} ->
+        inventory = [:button | inventory]
+        puzzle = %{puzzle | button: true, last_bear_component: :button, inventory: inventory}
+        {puzzle, location, :acquired_button}
     end
   end
 
@@ -198,11 +213,12 @@ defmodule PuzzleChallenge.Puzzle do
     case puzzle do
       %Puzzle{pickaxe: false} ->
         {puzzle, location, :cannot_break_rock}
-      %Puzzle{pickaxe: true, pink_stone: false} ->
-        puzzle = %{puzzle | pink_stone: true, last_bear_component: :pink_stone}
-        {puzzle, location, :acquired_pink_stone}
-      %Puzzle{pickaxe: true, pink_stone: true} ->
+      %Puzzle{pickaxe: true, pink_stone: pink_stone?, grinch_friend: grinch_friend?, heart_teddy_bear: heart_teddy_bear?} when pink_stone? or grinch_friend? or heart_teddy_bear? ->
         {puzzle, location, :broke_rock}
+      %Puzzle{pickaxe: true, pink_stone: false, inventory: inventory} ->
+        inventory = [:pink_stone | inventory]
+        puzzle = %{puzzle | pink_stone: true, last_bear_component: :pink_stone, inventory: inventory}
+        {puzzle, location, :acquired_pink_stone}
     end
   end
 
@@ -217,24 +233,30 @@ defmodule PuzzleChallenge.Puzzle do
 
   def update(puzzle, location = "jar") do
     case puzzle do
-      %Puzzle{cookie: false} ->
-        puzzle = %{puzzle | cookie: true, last_bear_component: :cookie}
-        {puzzle, location, :acquired_cookie}
-      %Puzzle{cookie: true} ->
+      %Puzzle{cookie: cookie?, grinch_friend: grinch_friend?, heart_teddy_bear: heart_teddy_bear?} when cookie? or grinch_friend? or heart_teddy_bear? ->
         {puzzle, location, :already_acquired_cookie}
+      %Puzzle{cookie: false, inventory: inventory} ->
+        inventory = [:cookie | inventory]
+        puzzle = %{puzzle | cookie: true, last_bear_component: :cookie, inventory: inventory}
+        {puzzle, location, :acquired_cookie}
     end
   end
 
   def update(puzzle, location = "bag_of_pixie_dust") do
     case puzzle do
-      %Puzzle{new_pixie_dust: true} ->
+      %Puzzle{new_pixie_dust: new_pixie_dust?, grinch_friend: grinch_friend?, heart_teddy_bear: heart_teddy_bear?} when new_pixie_dust? or grinch_friend? or heart_teddy_bear? ->
         {puzzle, location, :already_acquired_new_pixie_dust}
-      %Puzzle{cotton_balls: true, button: true, pink_stone: true, cookie: true} ->
-        puzzle = %{puzzle | new_pixie_dust: true, old_pixie_dust: false}
+      %Puzzle{cotton_balls: true, button: true, pink_stone: true, cookie: true, inventory: inventory} ->
+        inventory = List.delete(inventory, :old_pixie_dust)
+        inventory = [:new_pixie_dust | inventory]
+        puzzle = %{puzzle | new_pixie_dust: true, old_pixie_dust: false, inventory: inventory}
         {puzzle, location, :acquired_new_pixie_dust}
-      %Puzzle{} ->
-        puzzle = %{puzzle | new_pixie_dust: false, old_pixie_dust: true}
+      %Puzzle{old_pixie_dust: false, inventory: inventory} ->
+        inventory = [:old_pixie_dust | inventory]
+        puzzle = %{puzzle | old_pixie_dust: true, inventory: inventory}
         {puzzle, location, :acquired_old_pixie_dust}
+      %Puzzle{old_pixie_dust: true} ->
+        {puzzle, location, :already_acquired_old_pixie_dust}
     end
   end
 
@@ -242,8 +264,16 @@ defmodule PuzzleChallenge.Puzzle do
     case puzzle do
       %Puzzle{heart_teddy_bear: true} ->
         {puzzle, location, :already_acquired_heart_teddy_bear}
-      %Puzzle{heart_teddy_bear: false, cotton_balls: true, button: true, pink_stone: true, cookie: true, new_pixie_dust: true, santas_magic_book: true} ->
-        puzzle = %{puzzle | heart_teddy_bear: true}
+      %Puzzle{heart_teddy_bear: false, cotton_balls: true, button: true, pink_stone: true, cookie: true, new_pixie_dust: true, santas_magic_book: true, inventory: inventory} ->
+        inventory =
+          inventory
+          |> List.delete(:cotton_balls)
+          |> List.delete(:button)
+          |> List.delete(:pink_stone)
+          |> List.delete(:cookie)
+          |> List.delete(:new_pixie_dust)
+          |> List.insert_at(0, :heart_teddy_bear)
+        puzzle = %{puzzle | heart_teddy_bear: true, cotton_balls: false, button: false, pink_stone: false, cookie: false, new_pixie_dust: false, inventory: inventory}
         {puzzle, location, :acquired_heart_teddy_bear}
       %Puzzle{} ->
         {puzzle, location, :nothing_happens}
@@ -252,19 +282,25 @@ defmodule PuzzleChallenge.Puzzle do
 
   def update(puzzle, location = "plant") do
     case puzzle do
-      %Puzzle{heart_teddy_bear: true, grinch_friend: false} ->
-        puzzle = %{puzzle | grinch_friend: true}
+      %Puzzle{heart_teddy_bear: true, grinch_friend: false, inventory: inventory} ->
+        inventory =
+          inventory
+          |> List.delete(:heart_teddy_bear)
+          |> List.insert_at(0, :grinch_friend)
+        puzzle = %{puzzle | grinch_friend: true, heart_teddy_bear: false, inventory: inventory}
         {puzzle, location, :acquired_grinch_friend}
-      %Puzzle{heart_teddy_bear: true, grinch_friend: true} ->
+      %Puzzle{grinch_friend: true} ->
         {puzzle, location, :already_acquired_grinch_friend}
-      %Puzzle{last_bear_component: component} ->
-        if is_nil(component) do
-          {puzzle, location, :see_grinch}
-        else
-          puzzle = Map.put(puzzle, component, false)
-          puzzle = Map.put(puzzle, :last_bear_component, nil)
-          {puzzle, location, {:grinch_stole_item, component}}
-        end
+      %Puzzle{last_bear_component: component} when is_nil(component) ->
+        {puzzle, location, :see_grinch}
+      %Puzzle{last_bear_component: component, inventory: inventory} ->
+        inventory = List.delete(inventory, component)
+        puzzle =
+          puzzle
+          |> Map.put(component, false)
+          |> Map.put(:last_bear_component, nil)
+          |> Map.put(:inventory, inventory)
+        {puzzle, location, {:grinch_stole_item, component}}
     end
   end
 
