@@ -144,6 +144,7 @@ defmodule PuzzleChallenge.Puzzle do
       %Puzzle{flashlight: true, dust_balls: true, inventory: inventory} ->
         inventory = List.delete(inventory, :dust_balls)
         inventory = [:dust_balls | inventory]
+        puzzle = %{puzzle | inventory: inventory}
         {puzzle, location, :acquired_more_dust_balls}
     end
   end
