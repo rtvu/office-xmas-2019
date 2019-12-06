@@ -59,6 +59,8 @@ defmodule PuzzleChallenge.Puzzle do
         {puzzle, location, :acquired_flashlight}
       %Puzzle{flashlight: true} ->
         {puzzle, location, :already_acquired_flashlight}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
@@ -70,6 +72,8 @@ defmodule PuzzleChallenge.Puzzle do
         {puzzle, location, :acquired_pickaxe}
       %Puzzle{pickaxe: true} ->
         {puzzle, location, :already_acquired_pickaxe}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
@@ -81,6 +85,8 @@ defmodule PuzzleChallenge.Puzzle do
         {puzzle, location, :acquired_magic_glasses}
       %Puzzle{magic_glasses: true} ->
         {puzzle, location, :already_acquired_magic_glasses}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
@@ -90,6 +96,8 @@ defmodule PuzzleChallenge.Puzzle do
         {puzzle, location, :missing_magic_glasses}
       %Puzzle{magic_glasses: true} ->
         {puzzle, location, :have_magic_glasses}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
@@ -99,6 +107,8 @@ defmodule PuzzleChallenge.Puzzle do
         {puzzle, location, :missing_magic_glasses}
       %Puzzle{magic_glasses: true} ->
         {puzzle, location, :have_magic_glasses}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
@@ -108,6 +118,8 @@ defmodule PuzzleChallenge.Puzzle do
         {puzzle, location, :missing_magic_glasses}
       %Puzzle{magic_glasses: true} ->
         {puzzle, location, :have_magic_glasses}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
@@ -117,6 +129,8 @@ defmodule PuzzleChallenge.Puzzle do
         {puzzle, location, :cannot_see}
       %Puzzle{flashlight: true} ->
         {puzzle, location, :nothing_to_see}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
@@ -130,6 +144,8 @@ defmodule PuzzleChallenge.Puzzle do
         {puzzle, location, :acquired_key}
       %Puzzle{flashlight: true, key: true} ->
         {puzzle, location, :nothing_to_see}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
@@ -146,6 +162,8 @@ defmodule PuzzleChallenge.Puzzle do
         inventory = [:dust_balls | inventory]
         puzzle = %{puzzle | inventory: inventory}
         {puzzle, location, :acquired_more_dust_balls}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
@@ -159,6 +177,8 @@ defmodule PuzzleChallenge.Puzzle do
         inventory = [:cotton_balls | inventory]
         puzzle = %{puzzle | cotton_balls: true, last_bear_component: :cotton_balls, inventory: inventory}
         {puzzle, location, :acquired_cotton_balls}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
@@ -172,6 +192,8 @@ defmodule PuzzleChallenge.Puzzle do
         {puzzle, location, :opened_chest}
       %Puzzle{key: true, reindeer_treats: true} ->
         {puzzle, location, :already_opened_chest}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
@@ -185,6 +207,8 @@ defmodule PuzzleChallenge.Puzzle do
         inventory = [:coal | inventory]
         puzzle = %{puzzle | inventory: inventory}
         {puzzle, location, :acquired_more_coal}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
@@ -196,6 +220,8 @@ defmodule PuzzleChallenge.Puzzle do
         {puzzle, location, :acquired_santas_magic_book}
       %Puzzle{santas_magic_book: true} ->
         {puzzle, location, :already_acquired_santas_magic_book}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
@@ -207,6 +233,8 @@ defmodule PuzzleChallenge.Puzzle do
         inventory = [:button | inventory]
         puzzle = %{puzzle | button: true, last_bear_component: :button, inventory: inventory}
         {puzzle, location, :acquired_button}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
@@ -220,6 +248,8 @@ defmodule PuzzleChallenge.Puzzle do
         inventory = [:pink_stone | inventory]
         puzzle = %{puzzle | pink_stone: true, last_bear_component: :pink_stone, inventory: inventory}
         {puzzle, location, :acquired_pink_stone}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
@@ -229,6 +259,8 @@ defmodule PuzzleChallenge.Puzzle do
         {puzzle, location, :cannot_break_rock}
       %Puzzle{pickaxe: true} ->
         {puzzle, location, :broke_rock}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
@@ -240,6 +272,8 @@ defmodule PuzzleChallenge.Puzzle do
         inventory = [:cookie | inventory]
         puzzle = %{puzzle | cookie: true, last_bear_component: :cookie, inventory: inventory}
         {puzzle, location, :acquired_cookie}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
@@ -258,6 +292,8 @@ defmodule PuzzleChallenge.Puzzle do
         {puzzle, location, :acquired_old_pixie_dust}
       %Puzzle{old_pixie_dust: true} ->
         {puzzle, location, :already_acquired_old_pixie_dust}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
@@ -265,8 +301,8 @@ defmodule PuzzleChallenge.Puzzle do
     case puzzle do
       %Puzzle{heart_teddy_bear: true} ->
         {puzzle, location, :already_acquired_heart_teddy_bear}
-      %Puzzle{heart_teddy_bear: false, cotton_balls: true, button: true, pink_stone: true, cookie: true, old_pixie_dust: true, santas_magic_book: true, inventory: inventory} ->
-        {puzzle, location, :old_pixie_dust}
+      %Puzzle{heart_teddy_bear: false, cotton_balls: true, button: true, pink_stone: true, cookie: true, old_pixie_dust: true, santas_magic_book: true} ->
+        {puzzle, location, :not_fresh_pixie_dust}
       %Puzzle{heart_teddy_bear: false, cotton_balls: true, button: true, pink_stone: true, cookie: true, new_pixie_dust: true, santas_magic_book: true, inventory: inventory} ->
         inventory =
           inventory
@@ -280,6 +316,8 @@ defmodule PuzzleChallenge.Puzzle do
         {puzzle, location, :acquired_heart_teddy_bear}
       %Puzzle{} ->
         {puzzle, location, :nothing_happens}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
@@ -304,6 +342,8 @@ defmodule PuzzleChallenge.Puzzle do
           |> Map.put(:last_bear_component, nil)
           |> Map.put(:inventory, inventory)
         {puzzle, location, {:grinch_stole_item, component}}
+      _error ->
+        {puzzle, nil, nil}
     end
   end
 
