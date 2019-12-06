@@ -5,8 +5,38 @@ defmodule PuzzleChallengeWeb.HomeView do
     santas_workshop: "/images/santas_workshop.svg",
     flashlight: "/images/flashlight.svg",
     pickaxe: "/images/pickaxe.svg",
-    magic_glasses: "/images/magic_glasses.svg"
+    magic_glasses: "/images/magic_glasses.svg",
+    picture_frame: "/images/picture_frame.svg",
+    magic_effect: "/images/magic_effect.svg",
+    dark_cloud: "/images/dark_cloud.svg",
+    nothing: "/images/nothing.svg",
+    key: "/images/key.svg",
+    dust_balls: "/images/dust_balls.svg",
+    cotton_balls: "/images/cotton_balls.svg",
+    locked_chest: "/images/locked_chest.svg",
+    opened_chest: "/images/opened_chest.svg",
+    reindeer_treats: "/images/reindeer_treats.svg",
+    coal: "/images/coal.svg",
+    santas_magic_book: "/images/santas_magic_book.svg",
+    button: "/images/button.svg",
+    buttons: "/images/buttons.svg",
+    big_rock: "/images/big_rock.svg",
+    broken_rocks: "/images/broken_rocks.svg",
+    pink_stone: "/images/pink_stone.svg",
+    cookie: "/images/cookie.svg",
+    new_pixie_dust: "/images/pixie_dust.svg",
+    old_pixie_dust: "/images/pixie_dust.svg",
   }
+
+
+
+
+  # new_pixie_dust: false,
+  # old_pixie_dust: false,
+  # heart_teddy_bear: false,
+  # grinch_friend: false,
+
+
 
   defp get_card_parameters(assigns) do
     location = assigns[:location]
@@ -39,9 +69,113 @@ defmodule PuzzleChallengeWeb.HomeView do
           image_path = @image_map[:magic_glasses]
           message = "This pair of glasses seem magical. Wonder what it can do?"
           make_card_parameters(image_path, message)
-        {"magic_glasses", :already_acquired_magic_glasses} ->
-          image_path = @image_map[:magic_glasses]
-          message = "You already have a pair of magical glasses."
+        {"picture_frame_" <> _rest, :missing_magic_glasses} ->
+          image_path = @image_map[:picture_frame]
+          message = "This picture shows a pair of glasses."
+          make_card_parameters(image_path, message)
+        {"picture_frame_a", :have_magic_glasses} ->
+          image_path = @image_map[:magic_effect]
+          message = "HINT A - to be TBD."
+          make_card_parameters(image_path, message)
+        {"picture_frame_b", :have_magic_glasses} ->
+          image_path = @image_map[:magic_effect]
+          message = "HINT B - to be TBD."
+          make_card_parameters(image_path, message)
+        {"picture_frame_c", :have_magic_glasses} ->
+          image_path = @image_map[:magic_effect]
+          message = "HINT C - to be TBD."
+          make_card_parameters(image_path, message)
+        {"dark_area_" <> _rest, :cannot_see} ->
+          image_path = @image_map[:dark_cloud]
+          message = "You cannot see inside that dark spot."
+          make_card_parameters(image_path, message)
+        {"dark_area_" <> _rest, :nothing_to_see} ->
+          image_path = @image_map[:nothing]
+          message = "There is nothing here."
+          make_card_parameters(image_path, message)
+        {"dark_area_b", :acquired_key} ->
+          image_path = @image_map[:key]
+          message = "You found a key."
+          make_card_parameters(image_path, message)
+        {"dark_area_c", :acquired_dust_balls} ->
+          image_path = @image_map[:dust_balls]
+          message = "You found some dust balls."
+          make_card_parameters(image_path, message)
+        {"dark_area_c", :acquired_more_dust_balls} ->
+          image_path = @image_map[:dust_balls]
+          message = "You got more dust balls."
+          make_card_parameters(image_path, message)
+        {"dark_area_d", :left_additional_cotton_balls} ->
+          image_path = @image_map[:cotton_balls]
+          message = "There are more cotton balls. You did not take anymore."
+          make_card_parameters(image_path, message)
+        {"dark_area_d", :acquired_cotton_balls} ->
+          image_path = @image_map[:cotton_balls]
+          message = "You found some cotton balls."
+          make_card_parameters(image_path, message)
+        {"locked_chest", :no_key} ->
+          image_path = @image_map[:locked_chest]
+          message = "This chest is locked."
+          make_card_parameters(image_path, message)
+        {"locked_chest", :opened_chest} ->
+          image_path = @image_map[:opened_chest]
+          message = "Hurray, Santa's reindeers will be so happy."
+          make_card_parameters(image_path, message)
+        {"locked_chest", :already_opened_chest} ->
+          image_path = @image_map[:opened_chest]
+          message = "There are plenty of treats for Santa's reindeers."
+          make_card_parameters(image_path, message)
+        {"coal", :acquired_coal} ->
+          image_path = @image_map[:coal]
+          message = "You took a lump of coal."
+          make_card_parameters(image_path, message)
+        {"coal", :acquired_more_coal} ->
+          image_path = @image_map[:coal]
+          message = "You took another lump of coal."
+          make_card_parameters(image_path, message)
+        {"santas_magic_book", :acquired_santas_magic_book} ->
+          image_path = @image_map[:santas_magic_book]
+          message = "You grabbed Santa's Magic Toy Making Book. Reading... reading... To make a Heart Teddy Bear, you will need a button, a pink stone, a cookie, cotton balls, and fresh heart pixie dust."
+          make_card_parameters(image_path, message)
+        {"santas_magic_book", :already_acquired_santas_magic_book} ->
+          image_path = @image_map[:santas_magic_book]
+          message = "Reading... reading... To make a Heart Teddy Bear, you will need a button, a pink stone, a cookie, cotton balls, and fresh heart pixie dust."
+          make_card_parameters(image_path, message)
+        {"button_pillow", :already_acquired_button} ->
+          image_path = @image_map[:buttons]
+          message = "There are many buttons. You did not take another button."
+          make_card_parameters(image_path, message)
+        {"button_pillow", :acquired_button} ->
+          image_path = @image_map[:button]
+          message = "You took a button."
+          make_card_parameters(image_path, message)
+        {"rock_" <> _rest, :cannot_break_rock} ->
+          image_path = @image_map[:big_rock]
+          message = "You'll need a tool to break this rock."
+          make_card_parameters(image_path, message)
+        {"rock_" <> _rest, :broke_rock} ->
+          image_path = @image_map[:broken_rocks]
+          message = "The rock broke into pieces."
+          make_card_parameters(image_path, message)
+        {"rock_a", :acquired_pink_stone} ->
+          image_path = @image_map[:pink_stone]
+          message = "You found a pink stone."
+          make_card_parameters(image_path, message)
+        {"jar", :already_acquired_cookie} ->
+          image_path = @image_map[:cookie]
+          message = "You already have a cookie."
+          make_card_parameters(image_path, message)
+        {"jar", :acquired_cookie} ->
+          image_path = @image_map[:cookie]
+          message = "You took a cookie."
+          make_card_parameters(image_path, message)
+        {"bag_of_pixie_dust", :already_acquired_new_pixie_dust} ->
+          image_path = @image_map[:new_pixie_dust]
+          message = "You already have fresh heart pixie dust."
+          make_card_parameters(image_path, message)
+        {"bag_of_pixie_dust", :acquired_new_pixie_dust} ->
+          image_path = @image_map[:new_pixie_dust]
+          message = "You already have fresh heart pixie dust."
           make_card_parameters(image_path, message)
       end
     end
