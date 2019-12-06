@@ -3,7 +3,8 @@
 <div class="card mx-auto border-dark" style="width: 18rem;">
   <img class="card-img-top border-dark border-bottom p-2" src="<%= Routes.static_path(@conn, card_image_path) %>">
   <div class="card-body">
-    <p class="card-text"><%= card_message %></p>
+    <%= card_message %>
+    <!-- <p class="card-text text-justify"></p> -->
   </div>
 </div>
 

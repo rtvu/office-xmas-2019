@@ -226,7 +226,7 @@ defmodule PuzzleChallengeWeb.HomeView do
   defp make_card_parameters(image_path, message) do
     message =
       message
-      |> text_to_html()
+      |> text_to_html(attributes: [class: "card-text"])
     {image_path, message}
   end
 
