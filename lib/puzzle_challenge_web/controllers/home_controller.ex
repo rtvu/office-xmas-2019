@@ -11,28 +11,42 @@ defmodule PuzzleChallengeWeb.HomeController do
   end
 
   defp get_puzzle(conn) do
-    case get_session(conn, "puzzle") do
+    session_puzzle = get_session(conn, "puzzle")
+    is_valid_puzzle = valid_puzzle?(session_puzzle)
+    if is_valid_puzzle do
+      conn
+      |> assign(:puzzle, session_puzzle)
+    else
+      puzzle = Puzzle.new()
+      conn
+      |> put_session("puzzle", puzzle)
+      |> assign(:puzzle, puzzle)
+    end
+  end
+
+  defp valid_puzzle?(puzzle) do
+    case puzzle do
       nil ->
-        puzzle = Puzzle.new()
-        conn
-        |> put_session("puzzle", puzzle)
-        |> assign(:puzzle, puzzle)
+        false
       puzzle ->
-        conn
-        |> assign(:puzzle, puzzle)
+        puzzle_set = puzzle |> Map.keys() |> MapSet.new()
+        default_puzzle_set = Puzzle.new() |> Map.keys() |> MapSet.new()
+        MapSet.equal?(puzzle_set, default_puzzle_set)
     end
   end
 
   defp handle_params(conn, params) do
     with  true <- Map.has_key?(params, "location"),
-          {puzzle, location, options} when not is_nil(location) <- Puzzle.update(conn.assigns[:puzzle], params["location"]) do
+          puzzle_temp = conn.assigns[:puzzle],
+          location_temp = params["location"],
+          {puzzle, location, options} when not is_nil(location) <- Puzzle.update(puzzle_temp, location_temp) do
       conn
       |> put_session("puzzle", puzzle)
       |> assign(:puzzle, puzzle)
       |> assign(:location, location)
       |> assign(:options, options)
     else
-      _ ->
+      _error ->
         conn
         |> assign(:location, nil)
     end
