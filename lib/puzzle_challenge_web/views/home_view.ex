@@ -26,6 +26,12 @@ defmodule PuzzleChallengeWeb.HomeView do
     cookie: "/images/cookie.svg",
     new_pixie_dust: "/images/pixie_dust.svg",
     old_pixie_dust: "/images/pixie_dust.svg",
+    pixie_dust: "/images/pixie_dust.svg",
+    workbench: "/images/workbench.svg",
+    heart_teddy_bear: "/images/heart_teddy_bear.svg",
+    grinch_friend: "/images/grinch_friend.svg",
+    grinch: "/images/grinch.svg",
+    grinch_steal: "/images/grinch_steal.svg"
   }
 
 
@@ -135,11 +141,11 @@ defmodule PuzzleChallengeWeb.HomeView do
           make_card_parameters(image_path, message)
         {"santas_magic_book", :acquired_santas_magic_book} ->
           image_path = @image_map[:santas_magic_book]
-          message = "You grabbed Santa's Magic Toy Making Book. Reading... reading... To make a Heart Teddy Bear, you will need a button, a pink stone, a cookie, cotton balls, and fresh heart pixie dust."
+          message = "You grabbed Santa's Magic Toy Making Book.\n\nReading... reading...\n\nTo make a Heart Teddy Bear, you will need a button, a pink stone, a cookie, cotton balls, and fresh heart pixie dust."
           make_card_parameters(image_path, message)
         {"santas_magic_book", :already_acquired_santas_magic_book} ->
           image_path = @image_map[:santas_magic_book]
-          message = "Reading... reading... To make a Heart Teddy Bear, you will need a button, a pink stone, a cookie, cotton balls, and fresh heart pixie dust."
+          message = "Reading... reading...\n\nTo make a Heart Teddy Bear, you will need a button, a pink stone, a cookie, cotton balls, and fresh heart pixie dust."
           make_card_parameters(image_path, message)
         {"button_pillow", :already_acquired_button} ->
           image_path = @image_map[:buttons]
@@ -171,11 +177,47 @@ defmodule PuzzleChallengeWeb.HomeView do
           make_card_parameters(image_path, message)
         {"bag_of_pixie_dust", :already_acquired_new_pixie_dust} ->
           image_path = @image_map[:new_pixie_dust]
-          message = "You already have fresh heart pixie dust."
+          message = "You don't need more heart pixie dust."
           make_card_parameters(image_path, message)
-        {"bag_of_pixie_dust", :acquired_new_pixie_dust} ->
-          image_path = @image_map[:new_pixie_dust]
-          message = "You already have fresh heart pixie dust."
+        {"bag_of_pixie_dust", :already_acquired_old_pixie_dust} ->
+          image_path = @image_map[:old_pixie_dust]
+          message = "You took some more heart pixie dust."
+          make_card_parameters(image_path, message)
+        {"bag_of_pixie_dust", _options} ->
+          image_path = @image_map[:pixie_dust]
+          message = "You found some heart pixie dust."
+          make_card_parameters(image_path, message)
+        {"workbench", :already_acquired_heart_teddy_bear} ->
+          image_path = @image_map[:heart_teddy_bear]
+          message = "The Heart Teddy Bear is so fluffy."
+          make_card_parameters(image_path, message)
+        {"workbench", :old_pixie_dust} ->
+          image_path = @image_map[:workbench]
+          message = "Following the instructions in Santa's Magic Toy Making Book and the components that you've gather...\n\nNothing happened. Is your heart pixie dust fresh?"
+          make_card_parameters(image_path, message)
+        {"workbench", :acquired_heart_teddy_bear} ->
+          image_path = @image_map[:heart_teddy_bear]
+          message = "Following the instructions in Santa's Magic Toy Making Book and the components that you've gather...\n\nYou made a Heart Teddy Bear!!!"
+          make_card_parameters(image_path, message)
+        {"workbench", :nothing_happens} ->
+          image_path = @image_map[:workbench]
+          message = "Many toys have been made at this workbench."
+          make_card_parameters(image_path, message)
+        {"plant", :acquired_grinch_friend} ->
+          image_path = @image_map[:grinch_friend]
+          message = "You gave your Heart Teddy Bear to the Grinch as a gift. You are now the best of friends."
+          make_card_parameters(image_path, message)
+        {"plant", :already_acquired_grinch_friend} ->
+          image_path = @image_map[:grinch_friend]
+          message = "You and the Grinch are playing by the plant."
+          make_card_parameters(image_path, message)
+        {"plant", :see_grinch} ->
+          image_path = @image_map[:grinch]
+          message = "You investigate the plant and see the Grinch hiding."
+          make_card_parameters(image_path, message)
+        {"plant", {:grinch_stole_item, component}} ->
+          image_path = @image_map[:grinch]
+          message = "You investigate the plant and the Grinch stole your #{component |> Atom.to_string() |> String.replace("_", " ")}."
           make_card_parameters(image_path, message)
       end
     end

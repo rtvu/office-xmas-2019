@@ -265,6 +265,8 @@ defmodule PuzzleChallenge.Puzzle do
     case puzzle do
       %Puzzle{heart_teddy_bear: true} ->
         {puzzle, location, :already_acquired_heart_teddy_bear}
+      %Puzzle{heart_teddy_bear: false, cotton_balls: true, button: true, pink_stone: true, cookie: true, old_pixie_dust: true, santas_magic_book: true, inventory: inventory} ->
+        {puzzle, location, :old_pixie_dust}
       %Puzzle{heart_teddy_bear: false, cotton_balls: true, button: true, pink_stone: true, cookie: true, new_pixie_dust: true, santas_magic_book: true, inventory: inventory} ->
         inventory =
           inventory
