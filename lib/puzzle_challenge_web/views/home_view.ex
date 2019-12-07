@@ -72,15 +72,15 @@ defmodule PuzzleChallengeWeb.HomeView do
           {image_path, message}
         {"picture_frame_a", :have_magic_glasses} ->
           image_path = @image_map[:magic_effect]
-          message = "HINT A - to be TBD."
+          message = "Cotton balls can be found on a shelf.\nButtons can be found on a pillow.\nPink stones can be found in rocks.\nCookies can be found in jars.\nPixie dust can be found in bags."
           {image_path, message}
         {"picture_frame_b", :have_magic_glasses} ->
           image_path = @image_map[:magic_effect]
-          message = "HINT B - to be TBD."
+          message = "Flashlights and pickaxes are useful. You should get these items."
           {image_path, message}
         {"picture_frame_c", :have_magic_glasses} ->
           image_path = @image_map[:magic_effect]
-          message = "HINT C - to be TBD."
+          message = "The Grinch may have hidden the key in one of the shelves."
           {image_path, message}
         {"dark_area_" <> _rest, :cannot_see} ->
           image_path = @image_map[:dark_cloud]
@@ -213,6 +213,10 @@ defmodule PuzzleChallengeWeb.HomeView do
         {"plant", {:grinch_stole_item, component}} ->
           image_path = @image_map[:grinch]
           message = "You investigate the plant and the Grinch stole your #{component |> Atom.to_string() |> String.replace("_", " ")}."
+          {image_path, message}
+        _error ->
+          image_path = @image_map[:santas_workshop]
+          message = "The Grinch is hiding in Santa's Workshop and has locked away Santa's reindeer treats.\n\nHelp Santa find the treats and help the Grinch get into the Christmas spirit."
           {image_path, message}
       end
     end
