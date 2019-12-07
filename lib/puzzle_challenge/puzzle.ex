@@ -212,6 +212,15 @@ defmodule PuzzleChallenge.Puzzle do
     end
   end
 
+  def update(puzzle, location = "present") do
+    case puzzle do
+      %Puzzle{} ->
+        {puzzle, location, :someones_present}
+      _error ->
+        {puzzle, nil, nil}
+    end
+  end
+
   def update(puzzle, location = "santas_magic_book") do
     case puzzle do
       %Puzzle{santas_magic_book: false, inventory: inventory} ->

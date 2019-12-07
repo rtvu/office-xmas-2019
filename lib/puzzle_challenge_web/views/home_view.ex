@@ -17,6 +17,7 @@ defmodule PuzzleChallengeWeb.HomeView do
     opened_chest: "/images/opened_chest.svg",
     reindeer_treats: "/images/reindeer_treats.svg",
     coal: "/images/coal.svg",
+    present: "/images/present.svg",
     santas_magic_book: "/images/santas_magic_book.svg",
     button: "/images/button.svg",
     buttons: "/images/buttons.svg",
@@ -129,6 +130,10 @@ defmodule PuzzleChallengeWeb.HomeView do
         {"coal", :acquired_more_coal} ->
           image_path = @image_map[:coal]
           message = "You took another lump of coal."
+          {image_path, message}
+        {"present", :someones_present} ->
+          image_path = @image_map[:present]
+          message = "This is someone's present. You did not take the present."
           {image_path, message}
         {"santas_magic_book", :acquired_santas_magic_book} ->
           image_path = @image_map[:santas_magic_book]
