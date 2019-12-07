@@ -17,11 +17,8 @@ defmodule PuzzleChallengeWeb.Router do
     pipe_through :browser
 
     get "/", HomeController, :index
+    get "/enable_links", EnableLinksController, :index
+    get "/disable_links", DisableLinksController, :index
     delete "/restart", RestartController, :delete
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", PuzzleChallengeWeb do
-  #   pipe_through :api
-  # end
 end

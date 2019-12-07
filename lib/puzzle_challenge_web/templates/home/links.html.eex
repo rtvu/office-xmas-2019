@@ -1,0 +1,31 @@
+<% link_specification = [
+                          {"Home", ""},
+                          {"Flashlight", "flashlight"},
+                          {"Pickaxe", "pickaxe"},
+                          {"Glasses", "magic_glasses"},
+                          {"Picture Frame A", "picture_frame_a"},
+                          {"Picture Frame B", "picture_frame_b"},
+                          {"Picture Frame C", "picture_frame_c"},
+                          {"Dark Area A", "dark_area_a"},
+                          {"Dark Area B", "dark_area_b"},
+                          {"Dark Area C", "dark_area_c"},
+                          {"Dark Area D", "dark_area_d"},
+                          {"Chest", "locked_chest"},
+                          {"Coal", "coal"},
+                          {"Present", "present"},
+                          {"Santa's Book", "santas_magic_book"},
+                          {"Pillow", "button_pillow"},
+                          {"Rock A", "rock_a"},
+                          {"Rock B", "rock_b"},
+                          {"Jar", "jar"},
+                          {"Bag", "bag_of_pixie_dust"},
+                          {"Workbench", "workbench"},
+                          {"Plant", "plant"},
+                        ]
+%>
+
+<div class="list-group">
+  <%= for {title, query} <- link_specification do %>
+    <%= link title, to: Routes.home_path(@conn, :index, "location": query), class: "btn btn-light btn-sm list-group-item p-1" %>
+  <% end %>
+</div>

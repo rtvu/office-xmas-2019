@@ -14,9 +14,6 @@
       <button type="button" class="btn btn-sm btn-outline-light" data-toggle="modal" data-target="#restartModal">
         <strong>Restart</strong>
       </button>
-      <!-- <%= link to: Routes.restart_path(@conn, :delete), method: :delete, class: "btn btn-sm btn-outline-light" do %>
-        <strong>Restart</strong>
-      <% end %> -->
     </nav>
 
     <div class="container">

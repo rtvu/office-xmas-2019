@@ -5,9 +5,21 @@ defmodule PuzzleChallengeWeb.HomeController do
 
   def index(conn, params) do
     conn
+    |> get_configurations()
     |> get_puzzle()
     |> handle_params(params)
     |> render("index.html")
+  end
+
+  defp get_configurations(conn) do
+    session_links? = get_session(conn, "links?")
+    if session_links? == true do
+      conn
+      |> assign(:links?, true)
+    else
+      conn
+      |> assign(:links?, false)
+    end
   end
 
   defp get_puzzle(conn) do
