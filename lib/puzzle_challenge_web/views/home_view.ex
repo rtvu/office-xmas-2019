@@ -61,7 +61,7 @@ defmodule PuzzleChallengeWeb.HomeView do
           {image_path, message}
         {"magic_glasses", :acquired_magic_glasses} ->
           image_path = @image_map[:magic_glasses]
-          message = "This pair of glasses seem magical. Wonder what it can do?"
+          message = "This pair of glasses seems magical. Wonder what it can do?"
           {image_path, message}
         {"magic_glasses", :already_acquired_magic_glasses} ->
           image_path = @image_map[:magic_glasses]
@@ -77,11 +77,11 @@ defmodule PuzzleChallengeWeb.HomeView do
           {image_path, message}
         {"picture_frame_b", :have_magic_glasses} ->
           image_path = @image_map[:magic_effect]
-          message = "Flashlights and pickaxes are useful. You should get these items."
+          message = "Flashlights and pickaxes are useful. You should find these items."
           {image_path, message}
         {"picture_frame_c", :have_magic_glasses} ->
           image_path = @image_map[:magic_effect]
-          message = "The Grinch may have hidden the key in one of the shelves."
+          message = "The Grinch hid a key in one of the shelves."
           {image_path, message}
         {"dark_area_" <> _rest, :cannot_see} ->
           image_path = @image_map[:dark_cloud]
@@ -145,7 +145,7 @@ defmodule PuzzleChallengeWeb.HomeView do
           {image_path, message}
         {"button_pillow", :already_acquired_button} ->
           image_path = @image_map[:buttons]
-          message = "There are many more buttons. You did not take another button."
+          message = "There are many buttons. You did not take another button."
           {image_path, message}
         {"button_pillow", :acquired_button} ->
           image_path = @image_map[:button]
@@ -153,15 +153,15 @@ defmodule PuzzleChallengeWeb.HomeView do
           {image_path, message}
         {"rock_" <> _rest, :cannot_break_rock} ->
           image_path = @image_map[:big_rock]
-          message = "You'll need a tool to break this rock."
+          message = "You'll need a tool to break these rocks."
           {image_path, message}
         {"rock_" <> _rest, :broke_rock} ->
           image_path = @image_map[:broken_rocks]
-          message = "The rock broke into pieces."
+          message = "The rock broke into pieces from the pickaxe."
           {image_path, message}
         {"rock_a", :acquired_pink_stone} ->
           image_path = @image_map[:pink_stone]
-          message = "You found a pink stone."
+          message = "The rock broke into pieces from the pickaxe. You found a pink stone inside."
           {image_path, message}
         {"jar", :already_acquired_cookie} ->
           image_path = @image_map[:cookie]
@@ -201,7 +201,7 @@ defmodule PuzzleChallengeWeb.HomeView do
           {image_path, message}
         {"workbench", :nothing_happens} ->
           image_path = @image_map[:workbench]
-          message = "Many toys have been made at this workbench."
+          message = "Many toys have been made on this workbench."
           {image_path, message}
         {"plant", :acquired_grinch_friend} ->
           image_path = @image_map[:grinch_friend]
@@ -213,11 +213,11 @@ defmodule PuzzleChallengeWeb.HomeView do
           {image_path, message}
         {"plant", :see_grinch} ->
           image_path = @image_map[:grinch]
-          message = "You investigate the plant and see the Grinch hiding."
+          message = "You see the Grinch hiding behind the plant."
           {image_path, message}
         {"plant", {:grinch_stole_item, component}} ->
           image_path = @image_map[:grinch]
-          message = "You investigate the plant and the Grinch stole your #{component |> Atom.to_string() |> String.replace("_", " ")}."
+          message = "The Grinch is hiding behind the plant, he stole your #{component |> Atom.to_string() |> String.replace("_", " ")}."
           {image_path, message}
         _error ->
           image_path = @image_map[:santas_workshop]
