@@ -7,7 +7,7 @@ defmodule PuzzleChallengeWeb.HomeView do
     pickaxe: "/images/pickaxe.svg",
     magic_glasses: "/images/magic_glasses.svg",
     picture_frame: "/images/picture_frame.svg",
-    magic_effect: "/images/magic_effect.svg",
+    magic_effect: "/images/magic_effect.gif",
     dark_cloud: "/images/dark_cloud.svg",
     nothing: "/images/nothing.svg",
     key: "/images/key.svg",
@@ -25,6 +25,7 @@ defmodule PuzzleChallengeWeb.HomeView do
     broken_rocks: "/images/broken_rocks.svg",
     pink_stone: "/images/pink_stone.svg",
     cookie: "/images/cookie.svg",
+    cookies: "/images/cookies.svg",
     new_pixie_dust: "/images/pixie_dust.svg",
     old_pixie_dust: "/images/pixie_dust.svg",
     workbench: "/images/workbench.svg",
@@ -97,11 +98,11 @@ defmodule PuzzleChallengeWeb.HomeView do
           {image_path, message}
         {"dark_area_c", :acquired_dust_balls} ->
           image_path = @image_map[:dust_balls]
-          message = "You found some dust balls."
+          message = "You found some dust bunnies."
           {image_path, message}
         {"dark_area_c", :acquired_more_dust_balls} ->
           image_path = @image_map[:dust_balls]
-          message = "You found more dust balls."
+          message = "You found more dust bunnies."
           {image_path, message}
         {"dark_area_d", :left_additional_cotton_balls} ->
           image_path = @image_map[:cotton_balls]
@@ -164,7 +165,7 @@ defmodule PuzzleChallengeWeb.HomeView do
           message = "The rock broke into pieces from the pickaxe. You found a pink stone inside."
           {image_path, message}
         {"jar", :already_acquired_cookie} ->
-          image_path = @image_map[:cookie]
+          image_path = @image_map[:cookies]
           message = "You already have a cookie."
           {image_path, message}
         {"jar", :acquired_cookie} ->
