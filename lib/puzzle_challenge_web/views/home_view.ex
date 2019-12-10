@@ -88,6 +88,10 @@ defmodule PuzzleChallengeWeb.HomeView do
           image_path = @image_map[:dark_cloud]
           message = "You cannot see inside dark places."
           {image_path, message}
+        {"dark_area_b", :nothing_to_see} ->
+          image_path = @image_map[:nothing]
+          message = "There is nothing here. Have you checked your inventory to see if you already have a key?"
+          {image_path, message}
         {"dark_area_" <> _rest, :nothing_to_see} ->
           image_path = @image_map[:nothing]
           message = "There is nothing here."
@@ -206,19 +210,19 @@ defmodule PuzzleChallengeWeb.HomeView do
           {image_path, message}
         {"plant", :acquired_grinch_friend} ->
           image_path = @image_map[:grinch_friend]
-          message = "You gave the Heart Teddy Bear to the Grinch as a gift. You are now the best of friends."
+          message = "The Grinch is hiding behind the tree. You gave the Heart Teddy Bear to the Grinch as a gift. You are now the best of friends."
           {image_path, message}
         {"plant", :already_acquired_grinch_friend} ->
           image_path = @image_map[:grinch_friend]
-          message = "You and the Grinch are playing by the plant."
+          message = "You and the Grinch are playing by the tree."
           {image_path, message}
         {"plant", :see_grinch} ->
           image_path = @image_map[:grinch]
-          message = "You see the Grinch hiding behind the plant."
+          message = "You see the Grinch hiding behind the tree."
           {image_path, message}
         {"plant", {:grinch_stole_item, component}} ->
-          image_path = @image_map[:grinch]
-          message = "The Grinch is hiding behind the plant, he stole your #{component |> Atom.to_string() |> String.replace("_", " ")}."
+          image_path = @image_map[:grinch_steal]
+          message = "The Grinch is hiding behind the tree. He stole your #{component |> Atom.to_string() |> String.replace("_", " ")}."
           {image_path, message}
         _error ->
           image_path = @image_map[:santas_workshop]
