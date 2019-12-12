@@ -4,7 +4,7 @@ defmodule PuzzleChallengeWeb.HomeView do
   @image_map %{
     santas_workshop: "/images/santas_workshop.svg",
     flashlight: "/images/flashlight.svg",
-    pickaxe: "/images/pickaxe.svg",
+    hammer: "/images/hammer.svg",
     magic_glasses: "/images/magic_glasses.svg",
     picture_frame: "/images/picture_frame.svg",
     magic_effect: "/images/magic_effect.gif",
@@ -52,13 +52,13 @@ defmodule PuzzleChallengeWeb.HomeView do
           image_path = @image_map[:flashlight]
           message = "You already have a flashlight."
           {image_path, message}
-        {"pickaxe", :acquired_pickaxe} ->
-          image_path = @image_map[:pickaxe]
-          message = "This pickaxe will be useful for breaking rocks."
+        {"hammer", :acquired_hammer} ->
+          image_path = @image_map[:hammer]
+          message = "This hammer will be useful for breaking rocks."
           {image_path, message}
-        {"pickaxe", :already_acquired_pickaxe} ->
-          image_path = @image_map[:pickaxe]
-          message = "You already have a pickaxe."
+        {"hammer", :already_acquired_hammer} ->
+          image_path = @image_map[:hammer]
+          message = "You already have a hammer."
           {image_path, message}
         {"magic_glasses", :acquired_magic_glasses} ->
           image_path = @image_map[:magic_glasses]
@@ -78,7 +78,7 @@ defmodule PuzzleChallengeWeb.HomeView do
           {image_path, message}
         {"picture_frame_b", :have_magic_glasses} ->
           image_path = @image_map[:magic_effect]
-          message = "Flashlights and pickaxes are useful. You should find these items."
+          message = "Flashlights and hammers are useful. You should find these items."
           {image_path, message}
         {"picture_frame_c", :have_magic_glasses} ->
           image_path = @image_map[:magic_effect]
@@ -162,11 +162,11 @@ defmodule PuzzleChallengeWeb.HomeView do
           {image_path, message}
         {"rock_" <> _rest, :broke_rock} ->
           image_path = @image_map[:broken_rocks]
-          message = "The rock broke into pieces from the pickaxe."
+          message = "The rock broke into pieces from the hammer."
           {image_path, message}
         {"rock_a", :acquired_pink_stone} ->
           image_path = @image_map[:pink_stone]
-          message = "The rock broke into pieces from the pickaxe. You found a pink stone inside."
+          message = "The rock broke into pieces from the hammer. You found a pink stone inside."
           {image_path, message}
         {"jar", :already_acquired_cookie} ->
           image_path = @image_map[:cookies]

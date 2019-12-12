@@ -3,7 +3,7 @@ defmodule PuzzleChallenge.Puzzle do
 
   defstruct [
     flashlight: false,
-    pickaxe: false,
+    hammer: false,
     magic_glasses: false,
     key: false,
     dust_balls: false,
@@ -24,7 +24,7 @@ defmodule PuzzleChallenge.Puzzle do
 
   # LOCATIONS:
   #   - flashlight
-  #   - pickaxe
+  #   - hammer
   #   - magic_glasses
   #   - picture_frame_a
   #   - picture_frame_b
@@ -64,14 +64,14 @@ defmodule PuzzleChallenge.Puzzle do
     end
   end
 
-  def update(puzzle, location = "pickaxe") do
+  def update(puzzle, location = "hammer") do
     case puzzle do
-      %Puzzle{pickaxe: false, inventory: inventory} ->
-        inventory = [:pickaxe | inventory]
-        puzzle = %{puzzle | pickaxe: true, inventory: inventory}
-        {puzzle, location, :acquired_pickaxe}
-      %Puzzle{pickaxe: true} ->
-        {puzzle, location, :already_acquired_pickaxe}
+      %Puzzle{hammer: false, inventory: inventory} ->
+        inventory = [:hammer | inventory]
+        puzzle = %{puzzle | hammer: true, inventory: inventory}
+        {puzzle, location, :acquired_hammer}
+      %Puzzle{hammer: true} ->
+        {puzzle, location, :already_acquired_hammer}
       _error ->
         {puzzle, nil, nil}
     end
@@ -249,11 +249,11 @@ defmodule PuzzleChallenge.Puzzle do
 
   def update(puzzle, location = "rock_a") do
     case puzzle do
-      %Puzzle{pickaxe: false} ->
+      %Puzzle{hammer: false} ->
         {puzzle, location, :cannot_break_rock}
-      %Puzzle{pickaxe: true, pink_stone: pink_stone?, grinch_friend: grinch_friend?, heart_teddy_bear: heart_teddy_bear?} when pink_stone? or grinch_friend? or heart_teddy_bear? ->
+      %Puzzle{hammer: true, pink_stone: pink_stone?, grinch_friend: grinch_friend?, heart_teddy_bear: heart_teddy_bear?} when pink_stone? or grinch_friend? or heart_teddy_bear? ->
         {puzzle, location, :broke_rock}
-      %Puzzle{pickaxe: true, pink_stone: false, inventory: inventory} ->
+      %Puzzle{hammer: true, pink_stone: false, inventory: inventory} ->
         inventory = [:pink_stone | inventory]
         puzzle = %{puzzle | pink_stone: true, last_bear_component: :pink_stone, inventory: inventory}
         {puzzle, location, :acquired_pink_stone}
@@ -264,9 +264,9 @@ defmodule PuzzleChallenge.Puzzle do
 
   def update(puzzle, location = "rock_b") do
     case puzzle do
-      %Puzzle{pickaxe: false} ->
+      %Puzzle{hammer: false} ->
         {puzzle, location, :cannot_break_rock}
-      %Puzzle{pickaxe: true} ->
+      %Puzzle{hammer: true} ->
         {puzzle, location, :broke_rock}
       _error ->
         {puzzle, nil, nil}

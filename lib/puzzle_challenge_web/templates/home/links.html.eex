@@ -1,7 +1,7 @@
 <% link_specification = [
                           {"Home", ""},
                           {"Flashlight", "flashlight"},
-                          {"Pickaxe", "pickaxe"},
+                          {"Hammer", "hammer"},
                           {"Glasses", "magic_glasses"},
                           {"Picture Frame A", "picture_frame_a"},
                           {"Picture Frame B", "picture_frame_b"},
